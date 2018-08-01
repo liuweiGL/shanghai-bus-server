@@ -8,12 +8,7 @@ const fs = require('fs')
 const path =require('path')
 const app = require('../app');
 const debug = require('debug')('shanghai-bus-server:server');
-const https = require('https');
-const options ={
-  key: fs.readFileSync(path.join(__dirname,'../credit/client.key')),
-  cert: fs.readFileSync(path.join(__dirname,'../credit/client.crt')),
-  ca: fs.readFileSync(path.join(__dirname,'../credit/ca.crt'))
-}
+const http = require('http');
 /**
  * Get port from environment and store in Express.
  */
@@ -25,7 +20,7 @@ app.set('port', port);
  * Create HTTPS server.
  */
 
-const server = https.createServer(options,app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
