@@ -8,7 +8,7 @@ const AMAP_KEY = '78cdb87ae7330aa8949a2c2c9868e834'
  * 
  * see https://lbs.amap.com/api/webservice/guide/api/search
  */
-exports.queryBusByLocation = function(location){
+exports.queryBusByLocation = function (location) {
   return axios({
     url: 'https://restapi.amap.com/v3/place/around',
     method: 'GET',
@@ -18,7 +18,7 @@ exports.queryBusByLocation = function(location){
       offset: 20,
       radius: 500,
       city: '上海',
-      types: '交通设施服务|150700', 
+      types: '交通设施服务|150700',
     }
   })
 }
@@ -29,15 +29,13 @@ exports.queryBusByLocation = function(location){
  */
 exports.queryBusByRouter = function (router) {
   return axios({
-    url: 'https://www.amap.com/service/poiInfo',
+    url: 'https://restapi.amap.com/v3/bus/linename',
     method: 'GET',
     params: {
+      key: AMAP_KEY,
       keywords: router,
-      pagenum: 1,
+      offset: 20,
       city: '上海',
-      pagesize: 20,
-      utd_sceneid: 1000,
-      query_type: 'TQUERY'
     }
   })
 }
@@ -46,7 +44,7 @@ exports.queryBusByRouter = function (router) {
  * 根据路线获取公交ID
  * @param {String} router 公交路线
  */
-exports.queryBusIdByRouter = function (router){
+exports.queryBusIdByRouter = function (router) {
   return axios({
     url: 'http://shanghaicity.openservice.kankanews.com/public/bus/get',
     method: 'POST',
@@ -64,14 +62,13 @@ exports.queryBusIdByRouter = function (router){
  *   sid: 公交ID
  * } 
  */
-exports.queryBusByStation = function (data){
+exports.queryStopInfo = function (data) {
   return axios({
     url: 'http://shanghaicity.openservice.kankanews.com/public/bus/Getstop',
-    method:'POST',
+    method: 'POST',
     data: {
       stoptype: 0,
       ...data
     }
   })
 }
-

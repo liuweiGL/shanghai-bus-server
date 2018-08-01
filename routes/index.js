@@ -10,8 +10,9 @@ router.get('/', function (req, res, next) {
 });
 
 // bus api
-router.get('/bus/:line',bus.queryLine)
-router.get('/bus/:station',bus.queryStation)
-router.get('/bus/:line/stop/:station',bus.queryStop)
+router.get('/bus/list/:location',bus.queryBusByLocation)
+router.get('/bus/detail/:router',bus.queryBusByRouter)
+router.get('/bus/:router/id',bus.queryBusByRouter)
+router.get('/bus/:router/stop/:station',bus.queryStopInfo)
 
 module.exports = router;
