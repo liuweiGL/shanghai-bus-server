@@ -17,7 +17,7 @@ exports.queryBusByLocation = function (location) {
       key: AMAP_KEY,
       offset: 20,
       radius: 500,
-      city: '上海',
+      city: '310000',
       types: '交通设施服务|150700',
     }
   })
@@ -29,13 +29,19 @@ exports.queryBusByLocation = function (location) {
  */
 exports.queryBusByRouter = function (router) {
   return axios({
-    url: 'https://restapi.amap.com/v3/bus/linename',
+    url: 'https://www.amap.com/service/poiInfo',
     method: 'GET',
     params: {
-      key: AMAP_KEY,
       keywords: router,
-      offset: 20,
-      city: '上海',
+      qii: true,
+      city: '310000',
+      pagesize: 20,
+      need_utd: true,
+      cluster_state: 5,
+      is_classify: true,
+      utd_sceneid: 1000,
+      query_type: 'TQUERY',
+      addr_poi_merge: true
     }
   })
 }
