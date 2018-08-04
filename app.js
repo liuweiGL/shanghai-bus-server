@@ -1,65 +1,65 @@
-const express = require("express");
-const path = require("path");
-const log4js = require("log4js");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
+const express = require('express')
+const path = require('path')
+const log4js = require('log4js')
+const bodyParser = require('body-parser')
 
-const index = require("./routes/index");
+const index = require('./routes/index')
 
-const app = express();
+const app = express()
 
 // 设置log
 log4js.configure({
   appenders: {
     out: {
-      type: "stdout"
+      type: 'stdout'
     },
     app: {
-      type: "file",
-      filename: "logs/access.log",
+      type: 'file',
+      filename: 'logs/access.log',
       maxLogSize: 4096,
       backups: 5
     }
   },
   categories: {
-    default: { appenders: ["out", "app"], level: "all" }
+    default: { appenders: ['out', 'app'], level: 'all' }
   },
   pm2: true
-});
+})
 
-const logger = log4js.getLogger();
+const logger = log4js.getLogger()
 
 // 使用 log
-app.use(log4js.connectLogger(logger));
+app.use(log4js.connectLogger(logger))
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'jade')
 
-// uncomment after placing your favicon in /public
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+// parse application/json
+app.use(bodyParser.json())
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// 静态文件
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use("/", index);
+app.use('/', index)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  const err = new Error("Not Found");
-  err.status = 404;
-  next(err);
-});
+  const err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.message = err.message
+  res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
+  res.status(err.status || 500)
+  res.render('error')
+})
 
-module.exports = app;
+module.exports = app

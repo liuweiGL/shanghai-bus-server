@@ -1,15 +1,15 @@
-const axios = require('axios')
+const request = require('../js/request')
 
 const AMAP_KEY = '78cdb87ae7330aa8949a2c2c9868e834'
 
 /**
  * 查询附近的公交
  * @param {String} location 经纬度
- * 
+ *
  * see https://lbs.amap.com/api/webservice/guide/api/search
  */
-exports.queryBusByLocation = function (location) {
-  return axios({
+exports.queryBusByLocation = function(location) {
+  return request({
     url: 'https://restapi.amap.com/v3/place/around',
     method: 'GET',
     params: {
@@ -18,7 +18,7 @@ exports.queryBusByLocation = function (location) {
       offset: 20,
       radius: 500,
       city: '310000',
-      types: '交通设施服务|150700',
+      types: '交通设施服务|150700'
     }
   })
 }
@@ -27,8 +27,8 @@ exports.queryBusByLocation = function (location) {
  * 根据路线查询公交
  * @param {String} router 公交路线
  */
-exports.queryBusByRouter = function (router) {
-  return axios({
+exports.queryBusByRouter = function(router) {
+  return request({
     url: 'https://www.amap.com/service/poiInfo',
     method: 'GET',
     params: {
@@ -50,8 +50,8 @@ exports.queryBusByRouter = function (router) {
  * 根据路线获取公交ID
  * @param {String} router 公交路线
  */
-exports.queryBusIdByRouter = function (router) {
-  return axios({
+exports.queryBusIdByRouter = function(router) {
+  return request({
     url: 'http://shanghaicity.openservice.kankanews.com/public/bus/get',
     method: 'POST',
     data: {
@@ -62,19 +62,17 @@ exports.queryBusIdByRouter = function (router) {
 
 /**
  * 查询公交到站信息
- * @param {Object} data
+ * @param {Object} params
  * {
+ *   stoptype: 公交行驶方向
  *   stopid: 站台ID,
  *   sid: 公交ID
- * } 
+ * }
  */
-exports.queryStopInfo = function (data) {
-  return axios({
+exports.queryStopInfo = function(params) {
+  return request({
+    params,
     url: 'http://shanghaicity.openservice.kankanews.com/public/bus/Getstop',
-    method: 'POST',
-    data: {
-      stoptype: 0,
-      ...data
-    }
+    method: 'POST'
   })
 }
