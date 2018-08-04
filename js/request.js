@@ -6,31 +6,43 @@ const request = axios.create({
   timeout: 1000 * 60 * 3
 })
 request.interceptors.request.use(
-  function(config) {
+  function (config) {
     return config
   },
-  function(error) {
+  function (error) {
     // 通过response返给调用者
     return Promise.resolve(error)
   }
 )
 request.interceptors.response.use(
-  function(response) {
+  function (response) {
     return {
       status: Status.SUCCESS,
       data: response.data
     }
   },
-  function(error) {
+  function (error) {
     // 通过response返给调用者
     let res
-    const { response } = error
+    const {
+      response
+    } = error
 
     if (response) {
-      const { config, data, headers, status } = response
-      res = { config, data, headers, status }
+      const {
+        config,
+        data,
+        headers,
+        status
+      } = response
+      res = {
+        config,
+        data,
+        headers,
+        status
+      }
     } else {
-      res = e.message
+      res = error.message
     }
     return Promise.resolve({
       status: Status.FAIL,

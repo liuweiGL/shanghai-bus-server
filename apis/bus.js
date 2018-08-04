@@ -8,7 +8,7 @@ const AMAP_KEY = '78cdb87ae7330aa8949a2c2c9868e834'
  *
  * see https://lbs.amap.com/api/webservice/guide/api/search
  */
-exports.queryBusByLocation = function(location) {
+exports.queryBusByLocation = function (location) {
   return request({
     url: 'https://restapi.amap.com/v3/place/around',
     method: 'GET',
@@ -27,7 +27,7 @@ exports.queryBusByLocation = function(location) {
  * 根据路线查询公交
  * @param {String} router 公交路线
  */
-exports.queryBusByRouter = function(router) {
+exports.queryBusDetailByRouter = function (router) {
   return request({
     url: 'https://www.amap.com/service/poiInfo',
     method: 'GET',
@@ -50,13 +50,11 @@ exports.queryBusByRouter = function(router) {
  * 根据路线获取公交ID
  * @param {String} router 公交路线
  */
-exports.queryBusIdByRouter = function(router) {
+exports.queryBusIdByRouter = function (router) {
   return request({
     url: 'http://shanghaicity.openservice.kankanews.com/public/bus/get',
     method: 'POST',
-    data: {
-      idnum: router
-    }
+    data:`idnum=${router}`
   })
 }
 
@@ -69,7 +67,7 @@ exports.queryBusIdByRouter = function(router) {
  *   sid: 公交ID
  * }
  */
-exports.queryStopInfo = function(params) {
+exports.queryStopInfo = function (params) {
   return request({
     params,
     url: 'http://shanghaicity.openservice.kankanews.com/public/bus/Getstop',
