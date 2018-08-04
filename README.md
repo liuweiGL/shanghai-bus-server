@@ -52,7 +52,7 @@ interface Fail {
   };
 }
 
-// see detail:https://lbs.amap.com/api/webservice/guide/tools/info
+// see detail: https://lbs.amap.com/api/webservice/guide/tools/info
 ```
 
 ----------------
@@ -120,7 +120,7 @@ interface Fail {
 ### 3. ~~~公交标识（ID）~~~
 
 > ~~~查询公交到站API中需要的 `sid` 字段：`/bus/id`~~~  
-> 经验证，在 `实时公交` 中使用到的 `sid` 字段，只是把 `公交路线` 使用 `md5` 进行 `32位` 的加密即可。
+> 经验证，在 `实时公交` 中使用到的 `sid` 字段，只是把 `公交路线名称` 使用 `md5` 进行 `32位` 的加密即可。
 
 #### 请求方式：GET
 
@@ -164,7 +164,7 @@ interface Fail {
 | ---- | ---- |--|--|
 |stoptype|Number|是| `0` \| `1`，公交行驶方向|
 |stopid|Number|是|要查询的站台在站台列表中的下标|
-|sid|String|是|`/bus/id/:router`接口中拿到的公交标识|
+|sid|String|是|公交路线标识|
 
 #### 响应结果
 
@@ -198,8 +198,8 @@ interface Fail {
 
 + `Axios` ： `POST` 传参问题
 
-> 在 `Nodejs` 环境中使用 `Axios` 调用第三方的 `API`，使用 `POST` 请求时，总是无法预期的传递参数。
-> `Axios` 文档中提到 `data` 的类型为 `Object`；但其实在 `Nodejs` 中，`Axios` 使用的是`http.request`，支持的参数格式为 `querystring`，因此 `data` 参数需要改为 `key=value` 格式的字符串。调试了一下午，我也是日了狗。
+> 在 `Nodejs` 环境中使用 `POST` 请求时，总是无法预期的传递参数。
+> `Axios` 文档中提到 `data` 的类型为 `Object`，但其实在 `Nodejs` 中 `Axios` 使用的是`http.request`，支持的参数格式为 `querystring`；因此 `data` 参数需要改为 `key=value` 格式的字符串。调试了一下午，我也是日了狗。
 
 ### API Test
 
