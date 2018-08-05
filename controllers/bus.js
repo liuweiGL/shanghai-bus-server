@@ -1,6 +1,7 @@
+const crypto = require('crypto')
 const busApi = require('../apis/bus')
 const Status = require('../js/types').Status
-
+const hash = crypto.createHash('md5')
 /**
  * 判断高德地图API是否成功
  * @param {Any} result
@@ -36,15 +37,17 @@ exports.queryBusByLocation = async function (request, response) {
 
 // 查询公交路线详情
 exports.queryBusDetailByRouter = async function (request, response) {
-  const result = await busApi.queryBusDetailByRouter(request.query.router)
+  const router = request.query.router
+  const result = await busApi.queryBusDetailByRouter(router)
   const {
     data,
     status
   } = result
   if (isSuccessForAmap(result)) {
+    const sid =  hash.update(router).digest('hex')
     const routers = data.data.busline_list.map((busline) => {
       return {
-        sid: '', // todo: md5 32位
+        sid,
         name: busline.name,
         company: busline.company,
         price: busline.basic_price,

@@ -94,6 +94,7 @@ interface Router {
   interval: Time; // 发车间隔
   frontName: string; // 始发站
   terminalName: string; // 终点站
+  stations: Array<Station>; // 站台列表
 }
 
 // 请求成功
@@ -120,7 +121,7 @@ interface Fail {
 ### 3. ~~~公交标识（ID）~~~
 
 > ~~~查询公交到站API中需要的 `sid` 字段：`/bus/id`~~~  
-> 经验证，在 `实时公交` 中使用到的 `sid` 字段，只是把 `公交路线名称` 使用 `md5` 进行 `32位` 的加密即可。
+> 经验证，在 `实时公交` 中使用到的 `sid` 字段，其实是 `公交路线名称` 的 `md5` 摘要值。
 
 #### 请求方式：GET
 
