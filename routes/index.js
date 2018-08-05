@@ -9,6 +9,12 @@ router.get('/', function (req, res, next) {
   })
 })
 
+router.get('/bus', function (req, res, next) {
+  res.render('index', {
+    title: 'Express'
+  })
+})
+
 // bus api
 router.get('/bus/list', bus.queryBusByLocation)
 router.get('/bus/detail', bus.queryBusDetailByRouter)
