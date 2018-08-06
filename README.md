@@ -4,6 +4,8 @@
 
 ## API
 
+> 因为这个服务其实也是代理第三方API，错误信息分为两种：后端http请求第三方API时发生的错误以及根据业务逻辑自定义的错误，所以返回的错误信息可能不统一；
+
 ```ts
 
 // 状态
@@ -12,10 +14,31 @@ interface Status{
   FAIL;
 }
 
+// 后台http请求发生错误
+interface HttpException {
+    status: number; // 代理请求错误状态码，一般是 500
+    config: Any; // Axios 的配置信息
+    header: Any; // 请求头
+    data: string; // 第三方返回的错误信息
+}
+
+// 第三方返回的数据不满足业务需要，自定义的异常
+interface CustomException {
+  data: {
+    msg: string;
+  };
+}
+
 // resopnse格式
 interface Response {
   status: Status;
   data: Any;
+}
+
+// 请求失败
+interface Fail {
+  status: Status.FAIL;
+  data: HttpException | CustomException;
 }
 
 ```
@@ -43,16 +66,9 @@ interface Success {
   };
 }
 
-interface Fail {
-  status: Status.FAIL;
-  data: {
-    status: string;
-    info: string;
-    infocode: string;
-  };
-}
-
+// 请求失败，可以根据data.msg信息去高德地图文档查看对应的错误代码调试
 // see detail: https://lbs.amap.com/api/webservice/guide/tools/info
+
 ```
 
 ----------------
@@ -105,14 +121,8 @@ interface Success {
   };
 }
 
-// 请求失败
-interface Fail {
-  status: Status.FAIL,
-  data: {
-    status: string; // 高德api接口返回的状态值
-    data: string; // 错误信息
-  };
-}
+// 请求失败，可以根据data.msg信息去高德地图文档查看对应的错误代码调试
+// see detail: https://lbs.amap.com/api/webservice/guide/tools/info
 
 ```
 
@@ -143,12 +153,6 @@ interface Success {
   }
 }
 
-// 请求失败
-interface Fail {
-  status: Status.Fail;
-  data: Any;
-}
-
 ```
 
 ----------------
@@ -171,24 +175,19 @@ interface Fail {
 
 ```ts
 
+// 到站信息
+interface DataItem {
+  time; // 到站时间，单位：秒
+  distance; // 到站距离，单位：米
+  routerName; // 公交路线名称
+  stationSum; // 途径站数
+  plateNumber; // 车牌号
+}
+
 // 请求成功
 interface Success {
   status: Status.SUCCESS;
-  data: {
-    error?: string; // 一般为 '-2'：没有到站信息
-    ...
-  }
-}
-
-// 请求失败
-interface Fail {
-  status: Status.FAIL;
-  data: {
-    status: number; // 代理请求错误状态码，一般是 500
-    config: Any; // Axios 的配置信息
-    header: Any; // 请求头
-    data: string; // 第三方返回的错误信息
-  }
+  data: Array<DataItem>;
 }
 
 ```
