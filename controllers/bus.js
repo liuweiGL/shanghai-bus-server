@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const busApi = require('../apis/bus')
 const Status = require('../js/types').Status
-const hash = crypto.createHash('md5')
+
 /**
  * 判断高德地图API是否成功
  * @param {Any} result
@@ -40,6 +40,7 @@ exports.queryBusDetailByRouter = async function(request, response) {
   const result = await busApi.queryBusDetailByRouter(router)
   const { data, status } = result
   if (isSuccessForAmap(result)) {
+    const hash = crypto.createHash('md5')
     const sid = hash.update(router).digest('hex')
     const routers = data.data.busline_list.map((busline) => {
       return {
