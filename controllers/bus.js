@@ -28,7 +28,7 @@ exports.queryBusByLocation = async function(request, response) {
     response.send({
       status: Status.FAIL,
       data: {
-        msg: data.toString()
+        msg: JSON.stringify(data)
       }
     })
   }
@@ -71,7 +71,7 @@ exports.queryBusDetailByRouter = async function(request, response) {
     response.send({
       status: Status.FAIL,
       data: {
-        msg: data.toString()
+        msg: JSON.stringify(data)
       }
     })
   }
