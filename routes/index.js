@@ -18,7 +18,6 @@ router.get('/bus', function (req, res, next) {
 // bus api
 router.get('/bus/list', bus.queryBusByLocation)
 router.get('/bus/detail', bus.queryBusDetailByRouter)
-router.get('/bus/id', bus.queryBusIdByRouter)
 router.get('/bus/stop', bus.queryStopInfo)
 
 router.post('/bus/test', function (req, res) {

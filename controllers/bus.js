@@ -42,9 +42,10 @@ exports.queryBusDetailByRouter = async function(request, response) {
   if (isSuccessForAmap(result)) {
     const hash = crypto.createHash('md5')
     const sid = hash.update(router).digest('hex')
-    const routers = data.data.busline_list.map((busline) => {
+    const routers = data.data.busline_list.map((busline, index) => {
       return {
         sid,
+        direction: index % 2,
         name: busline.name,
         company: busline.company,
         price: busline.basic_price,
@@ -76,12 +77,6 @@ exports.queryBusDetailByRouter = async function(request, response) {
       }
     })
   }
-}
-
-// 查询公交ID
-exports.queryBusIdByRouter = async function(request, response) {
-  const result = await busApi.queryBusIdByRouter(request.query.router)
-  response.send(result)
 }
 
 // 公交到站信息

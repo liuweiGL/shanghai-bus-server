@@ -102,6 +102,7 @@ interface Station {
 // 公交路线
 interface Router {
   sid: string; // 路线标识，路线名称进行 md5 32位加密
+  direction: number; // 行驶方向
   name: string; // 路线名称
   company: string; // 所属公司
   price: number; // 票价
@@ -128,36 +129,7 @@ interface Success {
 
 ----------------
 
-### 3. ~~~公交标识（ID）~~~
-
-> ~~~查询公交到站API中需要的 `sid` 字段：`/bus/id`~~~  
-> 经验证，在 `实时公交` 中使用到的 `sid` 字段，其实是 `公交路线名称` 的 `md5` 摘要值。
-
-#### 请求方式：GET
-
-#### 参数：
-
-| 字段 | 类型 | 必须 | 描述 |
-| ---- | ---- |--|--|
-|router|String|是|要查询的公交路线|
-
-#### 响应结果
-
-```ts
-
-// 请求成功
-interface Success {
-  status: Status.SUCCESS;
-  data: {
-    sid: string; // 公交车标识
-  }
-}
-
-```
-
-----------------
-
-### 4. 实时公交
+### 3. 实时公交
 
 > 查询公交到站的实时信息：`/bus/stop`
 
@@ -167,8 +139,8 @@ interface Success {
 
 | 字段 | 类型 | 必须 | 描述 |
 | ---- | ---- |--|--|
-|stoptype|Number|是| `0` \| `1`，公交行驶方向|
-|stopid|Number|是|要查询的站台在站台列表中的下标|
+|direction|Number|是| `0` \| `1`，公交行驶方向|
+|stationIndex|Number|是|要查询的站台在站台列表中的下标|
 |sid|String|是|公交路线标识|
 
 #### 响应结果
