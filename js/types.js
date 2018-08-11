@@ -1,6 +1,6 @@
 
 // 接口请求状态
 exports.Status = {
-  SUCCESS: 'SUCCESS',
-  FAIL: 'FAIL'
+  SUCCESS: 1,
+  FAIL: 0
 }

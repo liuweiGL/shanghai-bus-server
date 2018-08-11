@@ -1,6 +1,7 @@
 const querystring = require('querystring')
 const request = require('../js/request')
 
+const city = '上海'
 const AMAP_KEY = '78cdb87ae7330aa8949a2c2c9868e834'
 
 /**
@@ -14,11 +15,11 @@ exports.queryBusByLocation = function(location) {
     url: 'https://restapi.amap.com/v3/place/around',
     method: 'GET',
     params: {
+      city,
       location,
       key: AMAP_KEY,
       offset: 20,
       radius: 500,
-      city: '310000',
       types: '交通设施服务|150700'
     }
   })
@@ -30,19 +31,14 @@ exports.queryBusByLocation = function(location) {
  */
 exports.queryBusDetailByRouter = function(router) {
   return request({
-    url: 'https://www.amap.com/service/poiInfo',
+    url: 'https://restapi.amap.com/v3/bus/linename',
     method: 'GET',
     params: {
+      city,
+      key: AMAP_KEY,
       keywords: router,
-      qii: true,
-      city: '310000',
-      pagesize: 20,
-      need_utd: true,
-      cluster_state: 5,
-      is_classify: true,
-      utd_sceneid: 1000,
-      query_type: 'TQUERY',
-      addr_poi_merge: true
+      offset: 1,
+      extensions : 'all'
     }
   })
 }

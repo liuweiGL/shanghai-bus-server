@@ -4,41 +4,19 @@
 
 ## API
 
-> 因为这个服务其实也是代理第三方API，错误信息分为两种：后端http请求第三方API时发生的错误以及根据业务逻辑自定义的错误，所以返回的错误信息可能不统一；
-
 ```ts
 
 // 状态
 interface Status{
-  SUCCESS;
-  FAIL;
+  SUCCESS = 1;
+  FAIL = 0;
 }
 
-// 后台http请求发生错误
-interface HttpException {
-    status: number; // 代理请求错误状态码，一般是 500
-    config: Any; // Axios 的配置信息
-    header: Any; // 请求头
-    data: string; // 第三方返回的错误信息
-}
-
-// 第三方返回的数据不满足业务需要，自定义的异常
-interface CustomException {
-  data: {
-    msg: string;
-  };
-}
 
 // resopnse格式
 interface Response {
   status: Status;
   data: Any;
-}
-
-// 请求失败
-interface Fail {
-  status: Status.FAIL;
-  data: HttpException | CustomException;
 }
 
 ```
@@ -61,12 +39,10 @@ interface Fail {
 
 interface Success {
   status: Status.SUCCESS;
-  data: {
-    routerNames: Array<string>;
-  };
+  data: Array<string>;
 }
 
-// 请求失败，可以根据data.msg信息去高德地图文档查看对应的错误代码调试
+// 请求失败，可以根据data中的信息去高德地图文档查看对应的错误代码调试
 // see detail: https://lbs.amap.com/api/webservice/guide/tools/info
 
 ```
@@ -92,17 +68,10 @@ interface Success {
 // 时间格式：小时分钟
 type Time = 'HHmm';
 
-// 站台
-interface Station {
-  name: string;
-  startTime?: Time; // 首班车时间
-  endTime?: Time; // 末班车时间
-}
 
 // 公交路线
 interface Router {
   sid: string; // 路线标识，路线名称进行 md5 32位加密
-  direction: number; // 行驶方向
   name: string; // 路线名称
   company: string; // 所属公司
   price: number; // 票价
@@ -111,18 +80,16 @@ interface Router {
   interval: Time; // 发车间隔
   frontName: string; // 始发站
   terminalName: string; // 终点站
-  stations: Array<Station>; // 站台列表
+  stations: Array<string>; // 站台列表
 }
 
 // 请求成功
 interface Success {
   status: Status.SUCCESS;
-  data: {
-    routers: Array<Router>;
-  };
+  data: Array<Router>;
 }
 
-// 请求失败，可以根据data.msg信息去高德地图文档查看对应的错误代码调试
+// 请求失败，可以根据data信息去高德地图文档查看对应的错误代码调试
 // see detail: https://lbs.amap.com/api/webservice/guide/tools/info
 
 ```
