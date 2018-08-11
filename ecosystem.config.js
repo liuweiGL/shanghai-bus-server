@@ -9,7 +9,7 @@ module.exports = {
       max_memory_restart: '300M',
       watch: false,
       env: {
-        NODE_ENV: 'development'
+        NODE_ENV: 'production' // development
       },
       env_production: {
         NODE_ENV: 'production'
@@ -18,12 +18,13 @@ module.exports = {
   ],
 
   deploy: {
+    // 自动发布
     production: {
-      user: 'liuweigl',
+      user: '',
       host: 'liuweigl.cn',
       ref: 'origin/master',
       repo: 'git@github.com:liuweiGL/shanghai-bus-server.git',
-      path: '/var/www/production',
+      path: '/opt/shanghai-bus/production',
       'post-deploy':
         'npm install && pm2 reload ecosystem.config.js --env production'
     }
