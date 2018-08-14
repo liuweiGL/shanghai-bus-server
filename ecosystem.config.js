@@ -2,13 +2,18 @@ module.exports = {
   apps: [
     {
       name: 'shanghai-bus-server',
-      script: './start.js',
-      instances: 2,
-      merge_logs: true,
+      script: './bin/www',
+      instances: 1,
       exec_mode: 'cluster',
       max_memory_restart: '300M',
-      log: true,
-      watch: false,
+      output: './logs/out.log',
+      error: './logs/error.log',
+      log: false,
+      log_date_format: 'YYYY-MM-DD HH:mm:ss',
+      merge_logs: true,
+      watch: true,
+      kill_timeout: 1500,
+      autorestart: true,
       env: {
         NODE_ENV: 'production' // development
       },

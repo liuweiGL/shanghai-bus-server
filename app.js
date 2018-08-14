@@ -1,19 +1,9 @@
-const express = require('express')
 const path = require('path')
-const log4js = require('log4js')
+const express = require('express')
 const bodyParser = require('body-parser')
-
 const index = require('./routes/index')
 
 const app = express()
-
-// 设置log
-log4js.configure('./log4js.config.json')
-
-const logger = log4js.getLogger()
-
-// 使用 log
-app.use(log4js.connectLogger(logger))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -45,5 +35,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500)
   res.render('error')
 })
+
 
 module.exports = app

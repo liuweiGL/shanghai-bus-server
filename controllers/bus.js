@@ -12,22 +12,26 @@ function isSuccessForAmap(data) {
 
 // 查询附近公交
 exports.queryBusByLocation = function(req, res) {
-  const response = Response.create()
-  busApi
-    .queryBusByLocation(req.query.location)
-    .then((data) => {
-      if (isSuccessForAmap(data)) {
-        const routerNames = data.pois.reduce((pre, next) => {
-          return pre.concat(next.address.split(';'))
-        }, [])
-        response.done(res, [...new Set(routerNames)])
-      } else {
+  try {
+    const response = Response.create()
+    busApi
+      .queryBusByLocation(req.query.location)
+      .then((data) => {
+        if (isSuccessForAmap(data)) {
+          const routerNames = data.pois.reduce((pre, next) => {
+            return pre.concat(next.address.split(';'))
+          }, [])
+          response.done(res, [...new Set(routerNames)])
+        } else {
+          response.fail(res, data)
+        }
+      })
+      .catch((error) => {
         response.fail(res, data)
-      }
-    })
-    .catch((error) => {
-      response.fail(res, data)
-    })
+      })
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 // 查询公交路线详情
