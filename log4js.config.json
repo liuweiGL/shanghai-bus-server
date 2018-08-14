@@ -1,0 +1,17 @@
+{
+  "appenders": {
+    "err": {
+      "type": "stderr"
+    },
+    "app": {
+      "type": "file",
+      "filename": "logs/access.log",
+      "maxLogSize": 4096,
+      "backups": 5
+    }
+  },
+  "categories": {
+    "default": { "appenders": ["app"], "level": "all" }
+  },
+  "pm2": true
+}

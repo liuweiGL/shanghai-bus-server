@@ -8,23 +8,7 @@ const index = require('./routes/index')
 const app = express()
 
 // 设置log
-log4js.configure({
-  appenders: {
-    out: {
-      type: 'stdout'
-    },
-    app: {
-      type: 'file',
-      filename: 'logs/access.log',
-      maxLogSize: 4096,
-      backups: 5
-    }
-  },
-  categories: {
-    default: { appenders: ['out', 'app'], level: 'all' }
-  },
-  pm2: true
-})
+log4js.configure('./log4js.config.json')
 
 const logger = log4js.getLogger()
 

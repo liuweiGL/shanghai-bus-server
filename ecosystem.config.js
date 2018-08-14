@@ -7,6 +7,7 @@ module.exports = {
       merge_logs: true,
       exec_mode: 'cluster',
       max_memory_restart: '300M',
+      log: true,
       watch: false,
       env: {
         NODE_ENV: 'production' // development
