@@ -12,7 +12,6 @@ function isSuccessForAmap(data) {
 
 // 查询附近公交
 exports.queryBusByLocation = function(req, res) {
-  try {
     const response = Response.create()
     busApi
       .queryBusByLocation(req.query.location)
@@ -27,11 +26,8 @@ exports.queryBusByLocation = function(req, res) {
         }
       })
       .catch((error) => {
-        response.fail(res, data)
+        response.fail(res, error)
       })
-  } catch (e) {
-    console.log(e)
-  }
 }
 
 // 查询公交路线详情
@@ -72,7 +68,7 @@ exports.queryBusDetailByRouter = function(req, res) {
       }
     })
     .catch((error) => {
-      response.fail(res, data)
+      response.fail(res, error)
     })
 }
 
