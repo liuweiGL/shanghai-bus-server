@@ -11,7 +11,7 @@ module.exports = {
       log: false,
       log_date_format: 'YYYY-MM-DD HH:mm:ss',
       merge_logs: true,
-      watch: true,
+      watch: false,
       kill_timeout: 1500,
       autorestart: true,
       env: {
