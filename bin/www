@@ -6,6 +6,7 @@
 
 const app = require('../app')
 const http = require('http')
+const sendMail = require('../js/mail')
 /**
  * Get port from environment and store in Express.
  */
@@ -79,7 +80,9 @@ function onError(error) {
 // 异常捕获
 function exceptionHandler(error) {
   console.error(error)
-  process.stderr.write('', function() {
-    process.exit(1)
-  })
+  sendMail(
+    'wei2460@qq.com',
+    '上海公交服务发生异常',
+    `<pre>${error.stack}</pre>`
+  )
 }

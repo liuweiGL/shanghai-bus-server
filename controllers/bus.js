@@ -12,22 +12,23 @@ function isSuccessForAmap(data) {
 
 // 查询附近公交
 exports.queryBusByLocation = function(req, res) {
-    const response = Response.create()
-    busApi
-      .queryBusByLocation(req.query.location)
-      .then((data) => {
-        if (isSuccessForAmap(data)) {
-          const routerNames = data.pois.reduce((pre, next) => {
-            return pre.concat(next.address.split(';'))
-          }, [])
-          response.done(res, [...new Set(routerNames)])
-        } else {
-          response.fail(res, data)
-        }
-      })
-      .catch((error) => {
-        response.fail(res, error)
-      })
+  const response = Response.create()
+  busApi
+    .queryBusByLocation(req.query.location)
+    .then((data) => {
+      throw new Error('test error')
+      if (isSuccessForAmap(data)) {
+        const routerNames = data.pois.reduce((pre, next) => {
+          return pre.concat(next.address.split(';'))
+        }, [])
+        response.done(res, [...new Set(routerNames)])
+      } else {
+        response.fail(res, data)
+      }
+    })
+    .catch((error) => {
+      response.fail(res, error)
+    })
 }
 
 // 查询公交路线详情
@@ -78,6 +79,7 @@ exports.queryStopInfo = function(req, res) {
   busApi
     .queryStopInfo(req.query)
     .then((data) => {
+      console.log(data)
       if (Array.isArray(data)) {
         response.done(
           res,
