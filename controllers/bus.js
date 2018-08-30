@@ -25,8 +25,10 @@ exports.queryBusByLocation = function(req, res) {
       } else {
         response.fail(res, data)
       }
+
     })
     .catch((error) => {
+      throw error
       response.fail(res, error)
     })
 }
