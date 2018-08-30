@@ -16,7 +16,6 @@ exports.queryBusByLocation = function(req, res) {
   busApi
     .queryBusByLocation(req.query.location)
     .then((data) => {
-      throw new Error('test error')
       if (isSuccessForAmap(data)) {
         const routerNames = data.pois.reduce((pre, next) => {
           return pre.concat(next.address.split(';'))
@@ -28,7 +27,6 @@ exports.queryBusByLocation = function(req, res) {
 
     })
     .catch((error) => {
-      throw error
       response.fail(res, error)
     })
 }
