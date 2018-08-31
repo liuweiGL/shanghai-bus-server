@@ -1,4 +1,5 @@
 const Types = require('./types')
+const { stringify } = require('flatted/cjs')
 
 class Response {
   constructor() {
@@ -14,7 +15,7 @@ class Response {
     res.send(this)
   }
   fail(res, data) {
-    this.data = data
+    this.data = typeof data === 'object' ? stringify(data) : data
     this.status = Types.Status.FAIL
     res.send(this)
   }

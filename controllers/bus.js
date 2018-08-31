@@ -79,7 +79,6 @@ exports.queryStopInfo = function(req, res) {
   busApi
     .queryStopInfo(req.query)
     .then((data) => {
-      console.log(data)
       if (Array.isArray(data)) {
         response.done(
           res,
