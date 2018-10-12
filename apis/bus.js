@@ -55,7 +55,7 @@ exports.queryBusDetailByRouter = function(router) {
 exports.queryStopInfo = function(data) {
   const { direction, stationIndex, sid } = data
   return request({
-    url: 'http://shanghaicity.openservice.kankanews.com/public/bus/Getstop',
+    url: 'https://shanghaicity.openservice.kankanews.com/public/bus/Getstop',
     method: 'POST',
     // data: `sid=${sid}&stoptype=${direction}&stoptype=${stationIndex}`
     data: querystring.stringify({
