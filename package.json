@@ -7,7 +7,7 @@
     "windowsDebug": "@powershell -Command $env:DEBUG='*';node bin/www"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "body-parser": "~1.17.1",
     "debug": "~2.6.3",
     "express": "~4.15.2",
